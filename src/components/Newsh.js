@@ -4,7 +4,7 @@ import { Spinner } from "./Spinner";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-export class News extends Component {
+export class Newsh extends Component {
   static defaultProps = {
     country: "in",
     pageSize: 8,
@@ -32,7 +32,7 @@ export class News extends Component {
   }
   async updateNews() {
     this.props.setProgress(10);
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=0f623d1cd6d04522bf4988f345719f0b`;
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=health&apiKey=0f623d1cd6d04522bf4988f345719f0b`;
 
     this.setState({ loading: true });
     let data = await fetch(url);
@@ -97,7 +97,7 @@ export class News extends Component {
 
   fetchMoreData = async () => {
     this.setState({ page: this.state.page + 1 });
-    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=0f623d1cd6d04522bf4988f345719f0b&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    const url = `https://newsapi.org/v2/top-headlines?country=us&category=health&apiKey=0f623d1cd6d04522bf4988f345719f0b&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -150,4 +150,4 @@ export class News extends Component {
   }
 }
 
-export default News;
+export default Newsh;

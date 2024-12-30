@@ -36,3 +36,73 @@
     transform: rotate(360deg);
   }
 }
+
+#scrollableDiv {
+  height: 80vh;  /* Or whatever height you want */
+  overflow-y: auto;
+}
+html {
+  scroll-behavior: smooth;
+}
+.container {
+  scroll-behavior: smooth;
+}
+
+#news-container {
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+/* In your CSS file */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* In your CSS file */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* In your CSS file */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.container .card {
+  flex: 1 1 calc(33.33% - 15px); /* 3 items per row */
+  margin-bottom: 20px;
+  height: 450px; /* Fixed height for the card */
+  display: flex;
+  flex-direction: column;
+}
+
+.card-img-top {
+  height: 200px; /* Fixed height for the image */
+  object-fit: cover; /* Ensures the image covers the area without stretching */
+}
+
+.card-body {
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body .card-title,
+.card-body .card-text {
+  margin-bottom: 10px;
+}
+
+/* Ensure the Read More button and the date don't overlap */
+.card-body p {
+  margin-bottom: 5px;
+}
+
+.card-body a {
+  margin-top: auto; /* Pushes the button to the bottom of the card */
+}
