@@ -30,9 +30,11 @@ export class General extends Component {
     };
     document.title = `${this.capitalizeFirstletter(this.props.category)}`;
   }
+
   async updateNews() {
     this.props.setProgress(10);
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=general&apiKey=1912e0cf251a45cc8c7036c67bec1d40&page=1&pageSize=8`;
+    const apiKey = process.env.REACT_APP_NEWS_API_KEY;
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=general&apiKey=${apiKey}&page=1&pageSize=8`;
 
     this.setState({ loading: true });
     let data = await fetch(url);
@@ -48,6 +50,7 @@ export class General extends Component {
     });
     this.props.setProgress(100);
   }
+
   async componentDidMount() {
     this.updateNews();
   }
@@ -56,48 +59,16 @@ export class General extends Component {
     this.setState({ page: this.state.page - 1 });
     this.updateNews();
   };
-  /*
- console.log("previo${this.props.country}");
- let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=0f623d1cd6d04522bf4988f345719f0b&page=${this.state.page-1}&pageSize=${this.props.pageSize}`;
- this.setState({loading:true});
-    let data=await fetch(url);
-    let parsedData=await data.json();
-    console.log(parsedData);
-    
-    this.setState({
-      page:this.state.page-1,
-      articles:parsedData.articles,
-      loading:false
-    })
-  }*/
 
   handleNextClick = async () => {
     this.setState({ page: this.state.page + 1 });
     this.updateNews();
   };
-  /*
-  console.log("next");
-  if(this.state.page+1>Math.ceil(this.state.totalResults/this.props.pageSize)){
-  }
-  else{
-  let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=0f623d1cd6d04522bf4988f345719f0b&page=${this.state.page+1}&pageSize=${this.props.pageSize}`;
-  this.setState({loading:true});
-    let data=await fetch(url);
-    let parsedData=await data.json();
-    console.log(parsedData);
-   
-
-    this.setState({
-      page:this.state.page+1,
-      articles:parsedData.articles,
-      loading:false
-    })
-  }
-  */
 
   fetchMoreData = async () => {
     this.setState({ page: this.state.page + 1 });
-    const url = `https://newsapi.org/v2/top-headlines?country=us&category=general&apiKey=0f623d1cd6d04522bf4988f345719f0b&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    const apiKey = process.env.REACT_APP_NEWS_API_KEY;
+    const url = `https://newsapi.org/v2/top-headlines?country=us&category=general&apiKey=${apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -126,7 +97,7 @@ export class General extends Component {
           <div className="row">
             {this.state.articles.map((element) => {
               return (
-                <div className="col-md-4">
+                <div className="col-md-4" key={element.url}>
                   <NewsItem
                     title={element.title ? element.title : ""}
                     discription={element.description ? element.description : ""}
@@ -141,10 +112,6 @@ export class General extends Component {
             })}
           </div>
         </InfiniteScroll>
-        {/*<div className="container d-flex justify-content-between">
-          <button type="button" className="btn btn-dark" disabled={this.state.page<=1} onClick={this.handlePrevClick}>&larr;Prev</button>
-          <button type="button" disabled={(this.state.page+1>Math.ceil(this.state.totalResults/this.props.pageSize))} className="btn btn-dark" onClick={this.handleNextClick}>Next &rarr;</button>
-    </div>*/}
       </div>
     );
   }
